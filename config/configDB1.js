@@ -6,5 +6,4 @@ const pool = mysql.createPool({
     "password":"qwerty777",
     "database":"oldDatabase"
 })
-console.log("in config")
 module.exports = pool;
