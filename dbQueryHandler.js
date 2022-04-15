@@ -3,6 +3,7 @@
 class connection {
 
     initialize() {
+        console.log("in connection")
         this.db1 = require("./config/configDB1");
         this.db2 = require("./config/configDB2");
     }

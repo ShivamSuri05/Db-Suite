@@ -9,17 +9,39 @@ const inputHandler = new input();
 const connection = new db();
 const comparison = new comp();
 
-let folder = "/home/shivamsuri/Desktop/test";
+let folder = "/Users/HP/Desktop/test";
 let count = 0,query;
 
+execute(folder);
 
-inputHandler.initialize(folder);
-connection.initialize();
+async function execute(folder){
+    connection.initialize();
+    let files = await inputHandler.initialize(folder);
+    console.log("here1")
+    console.log(files)
+    console.log("here2")
+    let length = files.length
+    let currentIndex = 2
+    while(currentIndex<length){
+        let query = await inputHandler.getNext(folder+'/'+files[currentIndex])
+        console.log(query)
+        currentIndex++;
+    }
+    console.log("after")
+    
+    // while(count<1 && (query = inputHandler.getNextQuery())){
+    //     console.log(query);
+    
+    //     connection.fetch(query);
+    //     count++;
+    // }
+}
 
-while(count<1 && (query = inputHandler.getNextQuery())){
-    console.log(query);
 
-    connection.fetch(query);
+
+
+
+
 
     // let answer = {};
     // connection.fetch(query,function(result){
@@ -31,8 +53,7 @@ while(count<1 && (query = inputHandler.getNextQuery())){
     // })
 
     //console.log(count);
-    count++;
-}
+    
 
 
 
