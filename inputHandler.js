@@ -8,7 +8,6 @@ class input{
     initialize(folderName){
         return new Promise((res) => {
             this.fs.readdir(folderName,(err,files)=>{
-                console.log("in promise")
                 if(err){
                     console.log(err)
                 }
@@ -33,11 +32,12 @@ class input{
         return sql;
     }
 
-    async getNext(filePath){
-        console.log("check1")
+    async getAllQueriesFromFile(filePath){
         return new Promise((res)=>{
             this.fs.readFile(filePath,'utf8',function(err,filetext){
-                //console.log(filetext)
+                if(err){
+                    console.error(err)
+                }
                 res(filetext)
             })
         })
