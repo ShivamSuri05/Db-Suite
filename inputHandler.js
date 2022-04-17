@@ -12,6 +12,7 @@ class input{
                     console.log(err)
                 }
                 else{
+                    files = files.filter(item => !(/(^|\/)\.[^\/\.]/g).test(item));
                     res(files)
                 }
             })
