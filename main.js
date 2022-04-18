@@ -19,13 +19,13 @@ async function execute(folder) {
             continue
         }
         const comparison = new comp();
-        report.initialize(file)
-        let queries = await inputHandler.getAllQueriesFromFile(folder + '/' + file)
+        report.initialize(file);
+        let queries = await inputHandler.getAllQueriesFromFile(folder + '/' + file);
         //queries contain all queries from file
         const queryList = queries.split("\n")
         //queryList contains all queries in a list
-        let queryListLength = queryList.length - 1
-        let rowNo = 1
+        let queryListLength = queryList.length - 1;
+        let rowNo = 1;
         for (const sql of queryList) {
             //console.log(sql)
             if (sql != '') {
@@ -35,13 +35,15 @@ async function execute(folder) {
                     //console.log(result)
                     //The comparison result that we will get, will be fed to reportHandler
                     //console.log(result,file)
-                    report.appendFile(file, result)
+                    report.appendFile(file, result,false)
                     if(result["Serial No"]==queryListLength){
-                        console.log(file,comparison.show())
-                        currentFileCounter++
+                        let answer = comparison.show();
+                        console.log(file,answer)
+                        currentFileCounter++;
+                        report.appendFile(file,answer,true)
                         if(currentFileCounter==files.length){
                             console.log("Run at the end")
-                            process.exit(0)
+                            //process.exit(0)
                         }
                     }
                 })
