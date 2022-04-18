@@ -20,24 +20,29 @@ class report {
         let fields = ['Serial No', 'SQL Query', 'Results from DB1', 'Results from DB2', 'Comparison Result'];
         //this.fields = fields + newLine;
 
-        let fields2 = ['Filename','No of Test Cases','Pass','Fail'];
-
         fs.writeFile((this.dirname+'/'+filename+'.csv'), fields.toString(), function (err) {
             if (err) throw err;
             console.log(`file ${filename+'.csv'} saved`);
         });
 
-        fs.writeFile((this.dirname+'/'+filename+'_Stats.csv'), fields2.toString(), function (err) {
+    }
+
+    initializeStats(){
+        let fields2 = ['No of Test Cases','Pass','Fail','Percentage'];
+
+        fs.writeFile((this.dirname+'/'+'Stats.csv'), fields2.toString(), function (err) {
             if (err) throw err;
-            console.log(`file ${filename+'_Stats.csv'} saved`);
+            console.log('Stats.csv saved');
         });
     }
-    appendFile(file,result,isStats){
+
+    appendFile(file,result){
         console.log(result);
-        if(isStats)
+        if(file == null)
         {
-        let res = newLine + file + ',' + result[0] + ',' + result[1] + ',' + result[2];
-        fs.appendFile((this.dirname+'/'+file+'_Stats.csv'), res, function (err) {
+            let Percentage = (result[1]/result[0])*100;
+        let res = newLine + result[0] + ',' + result[1] + ',' + result[2] + ',' + Percentage;
+        fs.appendFile((this.dirname+'/'+'Stats.csv'), res, function (err) {
                 if (err) throw err;
             //console.log('The "data to append" was appended to file!');
             });
