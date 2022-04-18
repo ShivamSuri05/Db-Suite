@@ -1,14 +1,21 @@
 'use strict'
 
 class Comparison{
-    compare(rowNo, sql, data1, data2){
+    constructor(){
+        this.total_tests = 0;
+        this.pass = 0;
+        this.fail = 0; 
+    }
+
+    compareRows(data1,data2)
+    {
         var comparison = true;
+        let diff = [];
         //Check size of both Json
         if(Object.keys(data1).length != Object.keys(data2).length)
         comparison = false;
         if(comparison){
             const len = Object.keys(data1).length;
-            let diff = [];
             for(let i=0; i<len; i++)
             {
                 const row1 = JSON.stringify(data1[i]);
@@ -16,14 +23,24 @@ class Comparison{
                 if(row1!=row2)
                 {
                     diff.push("DB1 "+ row1,"DB2 "+ row2)
-                    console.log(diff);
-                    comparison = comparison & false;
+                    // console.log(diff);
+                    comparison = false;
                 }
             }
         }
+        return {comparison,diff};
+    }
+
+    compare(rowNo, sql, data1, data2){
+        this.total_tests++;
+        var func = this.compareRows(data1,data2)
+        var comparison = func.comparison
+        var diff = func.diff
         
-        // const jsonData2 = JSON.parse(data2);
-        // // Logic to be added
+        if(comparison)
+        this.pass++;
+        else this.fail++;
+        
         let result = {
             "Serial No" : rowNo, 
             "SQL Query" : sql, 
@@ -37,9 +54,11 @@ class Comparison{
         // console.log(data1);
         // console.log("Results from DB2");
         // console.log(data2);
-        //console.log(result);
-        return result
+        console.log(result);
+        console.log(diff);
+        return result;
     }
 }
 
 module.exports = Comparison;
+
