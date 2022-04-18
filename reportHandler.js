@@ -29,7 +29,7 @@ class report {
         let csv =  newLine + json2csv(result,{header:false});
         fs.appendFile((this.dirname+'/'+file+'.csv'), csv, function (err) {
             if (err) throw err;
-            console.log('The "data to append" was appended to file!');
+            //console.log('The "data to append" was appended to file!');
         });
     }
 }

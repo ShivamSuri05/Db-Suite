@@ -8,7 +8,7 @@ async function execute(folder) {
     const inputHandler = new input();
     const connection = new db();
     const comparison = new comp();
-    const report = new rep(folder);
+    const report = new rep(folder.substr(0,folder.lastIndexOf('/')));
 
     connection.initialize();
     let files = await inputHandler.initialize(folder);

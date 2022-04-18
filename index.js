@@ -1,7 +1,4 @@
-const express = require("express");
-const execute = require("./main")
-
-const app = express();
+const execute = require("./main");
 
 let folder = null;//"/home/shivamsuri/Desktop/test";
 
