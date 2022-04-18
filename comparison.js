@@ -54,9 +54,13 @@ class Comparison{
         // console.log(data1);
         // console.log("Results from DB2");
         // console.log(data2);
-        console.log(result);
-        console.log(diff);
+        //console.log(result);
+        //console.log(diff);
         return result;
+    }
+    show(){
+        let answer = [this.total_tests,this.pass,this.fail]
+        return answer
     }
 }
 
