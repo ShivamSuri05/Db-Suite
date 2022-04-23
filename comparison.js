@@ -58,8 +58,16 @@ class Comparison{
         //console.log(diff);
         return result;
     }
-    show(){
-        let answer = [this.total_tests,this.pass,this.fail]
+    
+    getFinalStats(){
+        let passPercent = (this.pass/this.total_tests) * 100;
+        let answer = {
+            "Filename": null,
+            "No of Tests Cases": this.total_tests,
+            "Total Passed": this.pass,
+            "Total Failed": this.fail,
+            "Pass %": passPercent.toFixed(2)
+        }
         return answer
     }
 }
