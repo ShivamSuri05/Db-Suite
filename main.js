@@ -38,7 +38,6 @@ async function execute(folder) {
     }, function (err) {
         connection.exit()
         report.createFinalReport(finalStats)
-        console.log(Date.now()-startTime)
     });
 }
 
