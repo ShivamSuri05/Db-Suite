@@ -32,17 +32,20 @@ class Main{
             fetchqueries.then((queries) => {
                 const queryList = queries.split("\n")
                 async.forEachOfLimit(queryList, 1, function (sqlQuery, index, callback1) {
-                    if(sqlQuery==''){
-                        callback1()
+                    if(sqlQuery!=''){
+                        const fetchResults = connection.fetch(sqlQuery);
+                        fetchResults.then((results) => {
+                            let result = comparison.compare(1+index, sqlQuery, results[0].db1, results[1].db2);
+                            report.appendFile(file, result)
+                            callback1();
+                        })
                     }
-                    const fetchResults = connection.fetch(sqlQuery);
-                    fetchResults.then((results) => {
-                        let result = comparison.compare(1+index, sqlQuery, results[0].db1, results[1].db2);
-                        report.appendFile(file, result)
+                    else{
+                        console.log("Got empty sql")
                         callback1();
-                    })
+                    }
                 }, function (err) {
-                    let ans = comparison.getFinalStats()
+                    let ans = report.getStatsForFile()
                     ans.Filename = file
                     finalStats.push(ans)
                     callback()
