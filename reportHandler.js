@@ -34,7 +34,7 @@ class report {
             });
     }
 
-    async createFinalReport(results){
+    async createFinalReport(results,st){
         const csv = new ObjectsToCsv(results);
 
         try{
@@ -45,7 +45,6 @@ class report {
         }
         finally{
             console.log(`Writing to file completed. Path: ${this.dirname}/report.csv`)
-            let st = require("./main").startTime
             console.log(`Time Taken: ${Date.now()-st} ms`)
         }
     }
