@@ -20,13 +20,16 @@ class input{
     }
 
     async getAllQueriesFromFile(filePath){
-        return new Promise((res)=>{
+        const first = new Promise((res)=>{
             this.fs.readFile(filePath,'utf8',function(err,filetext){
                 if(err){
                     console.error(err)
                 }
                 res(filetext)
             })
+        });
+        return first.then((data)=>{
+            return data
         })
     }
 }

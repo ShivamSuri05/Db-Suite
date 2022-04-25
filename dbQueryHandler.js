@@ -27,6 +27,11 @@ class connection {
             return data
         }).catch(err => console.log(err));
     }
+
+    exit(){
+        this.db1.end();
+        this.db2.end();
+    }
 }
 
 module.exports = connection;
