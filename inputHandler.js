@@ -1,6 +1,6 @@
 'use strict';
 
-class input{
+class InputHandler{
     constructor(){
         this.fs = require("fs");
         this.currentfileIndex = 0;
@@ -9,11 +9,12 @@ class input{
         return new Promise((res) => {
             this.fs.readdir(folderName,(err,files)=>{
                 if(err){
-                    console.log(err)
+                    console.log(err);
+                    throw err;
                 }
                 else{
                     files = files.filter(item => !(/(^|\/)\.[^\/\.]/g).test(item));
-                    res(files)
+                    res(files);
                 }
             })
         })
@@ -34,4 +35,4 @@ class input{
     }
 }
 
-module.exports = input;
+module.exports = InputHandler;

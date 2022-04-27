@@ -11,7 +11,6 @@ class Comparison{
     {
         var comparison = true;
         let diff = [];
-        //Check size of both Json
         if(Object.keys(data1).length != Object.keys(data2).length)
         comparison = false;
         if(comparison){
@@ -23,7 +22,6 @@ class Comparison{
                 if(row1!=row2)
                 {
                     diff.push("DB1 "+ row1,"DB2 "+ row2)
-                    // console.log(diff);
                     comparison = false;
                 }
             }
@@ -44,18 +42,9 @@ class Comparison{
         let result = {
             "Serial No" : rowNo, 
             "SQL Query" : sql, 
-            "Results from DB1" : JSON.stringify(data1), 
-            "Results from DB2" : JSON.stringify(data2), 
-            "Comparison Result" : comparison
+            "Comparison Result" : comparison,
+            "Reason":comparison?'':(diff.length===0?'No of rows not equal':'Found different rows')
         }
-        // console.log("\nQuery to be executed")
-        // console.log(sql)
-        // console.log("Results from DB1");
-        // console.log(data1);
-        // console.log("Results from DB2");
-        // console.log(data2);
-        //console.log(result);
-        //console.log(diff);
         return result;
     }
 }
