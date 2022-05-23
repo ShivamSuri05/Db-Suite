@@ -8,7 +8,7 @@ class Connection {
 
     async executeQuery(sql){
         const first = new Promise((res,rej) =>
-            this.db1.execute(sql, function (err, result) {
+            this.db1.query(sql, function (err, result) {
                 if(err){
                     console.log('Database Error',err);
                     rej(err);
@@ -17,7 +17,7 @@ class Connection {
             })
         );
         const second = new Promise((res,rej) =>
-            this.db2.execute(sql, function (err, result) {
+            this.db2.query(sql, function (err, result) {
                 if (err){
                     console.log('Database Error',err);
                     rej(err);
