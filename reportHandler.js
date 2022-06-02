@@ -40,7 +40,7 @@ class ReportHandler{
         this.totalTests++;
         if(result["Comparison Result"] == true)
             this.totalPass++;
-        else
+        else if(result["Comparison Result"] == false)
             this.totalFail++;
         let csv = newLine + json2csv(result, { header: false });
         fs.appendFile((this.dirname + '/' + file + '.csv'), csv, function (err) {
@@ -83,8 +83,20 @@ class ReportHandler{
     }
 
     async writeOutputFile(filename,index,query,output1,output2){
-        let opcsv1 = query + newLine + json2csv(output1, { header: false });
-        let opcsv2 = query + newLine + json2csv(output2, { header: false });
+        let opcsv1
+        let opcsv2
+        if(output2.length==0){
+            opcsv1 = query + newLine + json2csv(output1, { header: false });
+            opcsv2 = query + newLine;
+        }
+        else if(output1.length==0){
+            opcsv1 = query + newLine;
+            opcsv2 = query + newLine + json2csv(output2, { header: false });
+        }
+        else{
+            opcsv1 = query + newLine + json2csv(output1, { header: false });
+            opcsv2 = query + newLine + json2csv(output2, { header: false });
+        }
         fs.writeFile((this.dirname + '/' + filename.split('.')[0] + '/' + index + 'DB1' + '.csv'),opcsv1, function (err) {
             if(err)
             throw err;

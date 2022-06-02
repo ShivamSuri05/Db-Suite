@@ -30,6 +30,17 @@ class Executor{
                             report.writeOutputFile(file,indexno,sqlQuery,results[0].db1, results[1].db2);
                             cb();
                         })
+                        .catch(err=>{
+                            let result = {
+                                "Serial No" : 1 + index, 
+                                "SQL Query" : sqlQuery, 
+                                "Comparison Result" : null,
+                                "Reason": "Syntax Error"
+                            }
+                            report.appendFile(file,result)
+                            console.log("in catch")
+                            cb();
+                        })
                     }
                     else{
                         cb();

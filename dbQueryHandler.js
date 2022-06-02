@@ -28,7 +28,12 @@ class Connection {
         return Promise.all([first, second])
         .then(function (data){
             return data
-        }).catch(err => {throw err});
+        }).catch(err => {
+            console.log("here")
+            console.log(typeof(err))
+            //console.log(err)
+            throw err
+        });
     }
 
     close(){
